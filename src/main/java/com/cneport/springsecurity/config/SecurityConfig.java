@@ -20,6 +20,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		return new BCryptPasswordEncoder();
 	}
 
+	
+	
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
@@ -27,8 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		.loginPage("/login.html")//(1) 自定义登陆页面 配置后不会再进入springsecurity默认登陆页,可以直接进入login.html不拦截 但是其他页面都没有拦截
 		.loginProcessingUrl("/login")//(7)自定义登陆逻辑 仍然无法登陆 关闭csrf(9)再次登录之后如果这里是/login则执行loadUserByUsername成功后发现重定向到loaclhost:8080
 		//.successForwardUrl("/main.html");//(10) 登陆成功后跳转的页面 结果报错There was an unexpected error (type=Method Not Allowed, status=405).因为这里要求是一个post方法
-		.successForwardUrl("/toMain")//(11)改为post请求 因为ForwardAuthenticationSuccessHandler中的onAuthenticationSuccess方法的request.getRequestDispatcher(this.forwardUrl).forward(request, response); 是一个转发而转发的方式决定于原请求方式，原请求方式是post，所以这里也必须是post
+		//.successForwardUrl("/toMain")//(11)改为post请求 因为ForwardAuthenticationSuccessHandler中的onAuthenticationSuccess方法的request.getRequestDispatcher(this.forwardUrl).forward(request, response); 是一个转发而转发的方式决定于原请求方式，原请求方式是post，所以这里也必须是post
+		.successHandler(new MyAuthenticationSuccessHandler("https://www.baidu.com/"))//(15)如果不想用上面的转发自定义重定向的话可以自定义MyAuthenticationSuccessHandler，可以自定义成功后的跳转。 对于前后端分离的，可以通过返回某字符串，在前端Controller里面进行重定向
 		.failureForwardUrl("/toError");//(12)登录失败页面 且error.html必须放行
+		//.failureHandler()(//(16)自定义失败跳转一样AuthenticationFailureHandler 不同的是认证失败了要设置异常，
 	    //.usernameParameter("username111").passwordParameter("password111")//(14)自定义用户名和密码的name值
 		
 		http.csrf().disable();//(8)关闭csrf防护
