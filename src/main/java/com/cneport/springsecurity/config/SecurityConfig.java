@@ -48,7 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		//.regexMatchers("").permitAll()//(18)正则匹配
 		//(19)ExpressionUrlAuthorizationConfigurer中定义了所有的权限控制permitAll(放行所有) denyAll(拒绝所有) anonymous(匿名) authenticated(需要认证) fullyAuthenticated(不允许记住我的方式需要完整的用户名+密码的认证) rememberMe(记住我登陆)
 		//.antMatchers("/main1.html").hasAuthority("admin1")//(20)admin可以访问这个页面,因为这个用户有admin,normal两个权限 如果不匹配，则返回type=Forbidden, status=403 ,严格区分大小写
-		.antMatchers("/main1.html").hasAnyAuthority("admin1","admin")//(21)多个权限
+		//.antMatchers("/main1.html").hasAnyAuthority("admin1","admin")//(21)多个权限
+		.antMatchers("/main1.html").hasRole("abcd")//(22)角色匹配，必须再UserServiceImpl中的ROLE_后面的部分 不匹配则报403
+		//.antMatchers("/main1.html").hasAnyRole("abcd")//(23)匹配多角色
+		//.antMatchers("/main1.html").hasIpAddress("...")//(24)根据IP地址匹配
 		.anyRequest().authenticated();//(2) 所有请求都必须被认证（登陆了）//(3)登陆后发现还是没有进去，报重定向次数过多,为什么呢? 访问login.html时拦截,跳转至登录页login.html,然后又拦截，一直重定向 页面报：localhost 将您重定向的次数过多。//(4)怎么解决呢？login.html要放行，不能拦截
 		
 		
