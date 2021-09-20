@@ -1,3 +1,18 @@
 1、改为post请求 因为ForwardAuthenticationSuccessHandler中的onAuthenticationSuccess方法的request.getRequestDispatcher(this.forwardUrl).forward(request, response);
  是一个转发而转发的方式决定于原请求方式，原请求方式是post，所以这里也必须是post
 2、当@RequestMapping(value="/toMain")//没有指定method属性时 get/post/puth/delete都可以访问
+
+访问控制url匹配规则
+(1) antMatcher()
+public C antMatchers(String .. antPatterns)
+参数是不定向参数，每个参数都是一个ant表达式
+规则如下：
+? 匹配一个字符
+* 匹配0个或多个字符
+** 匹配0个或多个目录
+eg: .antMatchers("/js/**","/css/**","/**/*.js").permitAll();
+(2)regexMatchers()
+使用正则表达式进行匹配。与antMatcher的区别主要是因为参数是正则
+eg:regexMatchers(".+[.]js").permitaAll();
+(3)mvcMatchers
+正常流程访问是ip+端口 + 上下文路径 + 接口名称 如果还想在接口名称和上下文路径之间加一下，则可以用mvcMatchers
