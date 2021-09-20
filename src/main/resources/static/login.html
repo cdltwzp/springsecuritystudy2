@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 方式必须是post 用户名的name必须是username 密码的name必须是password UsernamePasswordAuthenticationFilter中定义了requset获取用户名和密码的方式 request.getParameter(this.usernameParameter); -->
+<form action="/login" method="post">
+ 用户名：<input type="text" name="username"><br/>
+ 密码：<input type="password" name="password"><br/>
+ <input type="submit" value="登陆">
+</form>
+</body>
+</html>

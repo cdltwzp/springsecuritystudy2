@@ -1,0 +1,3 @@
+1、改为post请求 因为ForwardAuthenticationSuccessHandler中的onAuthenticationSuccess方法的request.getRequestDispatcher(this.forwardUrl).forward(request, response);
+ 是一个转发而转发的方式决定于原请求方式，原请求方式是post，所以这里也必须是post
+2、当@RequestMapping(value="/toMain")//没有指定method属性时 get/post/puth/delete都可以访问
