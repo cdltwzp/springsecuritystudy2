@@ -24,12 +24,12 @@ public class UserServiceImpl implements UserDetailsService {
 		}
 		
 		//2、根据查询的对象比较密码
-		String encodePassword = passwordEncoder.encode("123456");
+		String encodePassword = passwordEncoder.encode("1");
 		//3、返回用户对象 数据库中的
 		// AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal") 权限
 		//Cannot pass a null GrantedAuthority collection 权限不能为空，实现里面自己用逗号分隔
 		//权限： admin,normal 角色：ROLE_abc，角色必须以ROLE_为前缀
-		return new User("admin", encodePassword, AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal,ROLE_abc"));
+		return new User("admin", encodePassword, AuthorityUtils.commaSeparatedStringToAuthorityList("admin,normal,ROLE_abc,/main.html"));
 	}
 
 }
